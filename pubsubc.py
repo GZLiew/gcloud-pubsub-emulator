@@ -45,7 +45,7 @@ def create(project: str, topics: list[str]) -> None:
                 subscription,
             )
 
-            url = os.environ.get(f'PUBSUB_PUSHENDPOINT_{subscription_name}')
+            url = os.environ.get(f'PUBSUB_PUSHENDPOINT_{subscription}')
             if url:
                 print(f'    setting push endpoint: {url}')
                 config = pubsub_v1.types.PushConfig(push_endpoint=url)
