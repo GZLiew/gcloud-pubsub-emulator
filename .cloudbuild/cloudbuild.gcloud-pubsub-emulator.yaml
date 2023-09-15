@@ -1,0 +1,19 @@
+steps:
+  - id: "docker-build"
+    name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "${_IMAGE_NAME}", "."]
+    env:
+      - "DOCKER_BUILDKIT=1"
+    waitFor: ["-"] # begins immediately
+
+  - id: "docker-push"
+    name: "gcr.io/cloud-builders/docker"
+    args: ["push", "${_IMAGE_NAME}"]
+    waitFor: ["docker-build"]
+
+options:
+  dynamic_substitutions: true
+
+substitutions:
+  _IMAGE_NAME: gcr.io/${PROJECT_ID}/gcloud-pubsub-emulator
+
